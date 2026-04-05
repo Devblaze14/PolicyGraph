@@ -1,0 +1,385 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "Scheme",
+      "name": "Guidelines_CSS_Scholarship",
+      "description": "Ministry of Human Resource Development\nDepartment of Higher Education\nGUIDELINES FOR THE SCEME OF SCHOLARSHIP FOR COLLEGE AND\nUNIVERSITY STUDENTS\nBACKGROUND:\nNational Merit Scholarship Scheme was introduced by Department of Education in\n1961 -62. lt was available to brilliant but poor students from class Xl to Post-Graduation\nlevel. ln addition, a Scheme of Scholarship at the Secondary stage for talented chitdren\nfrom rural areas was also introduced by Department of Education in 1971-72. tt was\n",
+      "required_documents": "AADHAAR, PAN, Bank Details",
+      "application_process": "Apply via state portal.",
+      "id": "GUIDELINES_CSS_SCHOLARSHIP"
+    },
+    {
+      "type": "EligibilityCriterion",
+      "field": "student",
+      "operator": "==",
+      "value": true,
+      "description": "Must be a student",
+      "id": "GUIDELINES_CSS_SCHOLARSHIP_CRIT_0"
+    },
+    {
+      "type": "EligibilityCriterion",
+      "field": "age",
+      "operator": ">=",
+      "value": 18,
+      "description": "Age >= 18",
+      "id": "GUIDELINES_CSS_SCHOLARSHIP_CRIT_1"
+    },
+    {
+      "type": "EligibilityCriterion",
+      "field": "income",
+      "operator": "<=",
+      "value": 250000,
+      "description": "Income below 5 lakh",
+      "id": "GUIDELINES_CSS_SCHOLARSHIP_CRIT_2"
+    },
+    {
+      "type": "Benefit",
+      "description": "Provides financial benefit: rs. 1000",
+      "id": "GUIDELINES_CSS_SCHOLARSHIP_BEN_0"
+    },
+    {
+      "type": "State",
+      "name": "All India",
+      "id": "STATE_ALL_INDIA"
+    },
+    {
+      "type": "TargetGroup",
+      "name": "Citizens",
+      "id": "TARGET_CITIZENS"
+    },
+    {
+      "type": "TargetGroup",
+      "name": "Student",
+      "id": "TARGET_STUDENT"
+    },
+    {
+      "type": "Category",
+      "name": "General",
+      "id": "CAT_GENERAL"
+    },
+    {
+      "type": "Category",
+      "name": "Student",
+      "id": "CAT_STUDENT"
+    },
+    {
+      "type": "Service",
+      "name": "Guidelines CSS Scholarship.pdf",
+      "description": "Ministry of Human Resource Development\nDepartment of Higher Education\nGUIDELINES FOR THE SCEME OF SCHOLARSHIP FOR COLLEGE AND\nUNIVERSITY STUDENTS\nBACKGROUND:\nNational Merit Scholarship Scheme was introduced by Department of Education in\n1961 -62. lt was available to brilliant but poor students from class Xl to Post-Graduation\nlevel. ln addition, a Scheme of Scholarship at the Secondary stage for talented chitdren\nfrom rural areas was also introduced by Department of Education in 1971-72. tt was\n",
+      "id": "GUIDELINES_CSS_SCHOLARSHIP.PDF"
+    },
+    {
+      "type": "Authority",
+      "name": "Govt of India",
+      "id": "AUTH_GOVT_OF_INDIA"
+    },
+    {
+      "type": "Category",
+      "name": "SC/ST /OBC/ General :",
+      "id": "CAT_SC/ST_/OBC/_GENERAL_:"
+    },
+    {
+      "type": "Service",
+      "name": "Aadhaar Enrollment and Update",
+      "description": "Aadhaar is a 12-digit individual identification number issued by the Unique Identification Authority of India (UIDAI) on behalf of the Government of India. The number serves as a proof of identity and address, anywhere in India.",
+      "id": "AADHAAR_ENROLLMENT_AND_UPDATE"
+    },
+    {
+      "type": "Authority",
+      "name": "Unique Identification Authority of India (UIDAI)",
+      "id": "AUTH_UNIQUE_IDENTIFICATION_AUTHORITY_OF_INDIA_(UIDAI)"
+    },
+    {
+      "type": "Category",
+      "name": "Identity",
+      "id": "CAT_IDENTITY"
+    },
+    {
+      "type": "Service",
+      "name": "Ayushman Bharat Pradhan Mantri Jan Arogya Yojana (AB-PMJAY)",
+      "description": "A flagship scheme of the Government of India providing a health cover of Rs. 5 lakhs per family per year for secondary and tertiary care hospitalization to over 12 crore poor and vulnerable families (approximately 55 crore beneficiaries).",
+      "id": "AYUSHMAN_BHARAT_PRADHAN_MANTRI_JAN_AROGYA_YOJANA_(AB-PMJAY)"
+    },
+    {
+      "type": "State",
+      "name": "All India (except specific un-adopted states)",
+      "id": "STATE_ALL_INDIA_(EXCEPT_SPECIFIC_UN-ADOPTED_STATES)"
+    },
+    {
+      "type": "TargetGroup",
+      "name": "Poor and vulnerable families (BPL)",
+      "id": "TARGET_POOR_AND_VULNERABLE_FAMILIES_(BPL)"
+    },
+    {
+      "type": "Category",
+      "name": "Health",
+      "id": "CAT_HEALTH"
+    },
+    {
+      "type": "Service",
+      "name": "Indian Passport Issuance",
+      "description": "An Indian passport is issued by order of the President of India to Indian citizens for the purpose of international travel. It enables the bearer to travel internationally and serves as proof of Indian citizenship.",
+      "id": "INDIAN_PASSPORT_ISSUANCE"
+    },
+    {
+      "type": "Authority",
+      "name": "Ministry of External Affairs, Consular, Passport and Visa (CPV) Division",
+      "id": "AUTH_MINISTRY_OF_EXTERNAL_AFFAIRS,_CONSULAR,_PASSPORT_AND_VISA_(CPV)_DIVISION"
+    },
+    {
+      "type": "Category",
+      "name": "Travel, Identity",
+      "id": "CAT_TRAVEL,_IDENTITY"
+    },
+    {
+      "type": "Service",
+      "name": "PM-KISAN Samman Nidhi",
+      "description": "The Pradhan Mantri Kisan Samman Nidhi (PM-KISAN) is a central sector scheme that provides income support to all landholding farmers' families in the country to supplement their financial needs for procuring various inputs related to agriculture and allied activities as well as domestic needs. Under the Scheme, an income support of Rs.6000/- per year is provided to all farmer families across the country in three equal installments of Rs.2000/- each every four months.",
+      "id": "PM-KISAN_SAMMAN_NIDHI"
+    },
+    {
+      "type": "TargetGroup",
+      "name": "Farmer",
+      "id": "TARGET_FARMER"
+    },
+    {
+      "type": "Category",
+      "name": "Agriculture",
+      "id": "CAT_AGRICULTURE"
+    },
+    {
+      "type": "Service",
+      "name": "Land and Property Registration",
+      "description": "Registration of property transfers, sales, and agreements under the Registration Act 1908. Essential for assigning legal title to property owners and paying the correct ad-valorem local stamp duty rates.",
+      "id": "LAND_AND_PROPERTY_REGISTRATION"
+    },
+    {
+      "type": "Authority",
+      "name": "Inspector General of Registration (IGR) and Stamps Department (State-level)",
+      "id": "AUTH_INSPECTOR_GENERAL_OF_REGISTRATION_(IGR)_AND_STAMPS_DEPARTMENT_(STATE-LEVEL)"
+    },
+    {
+      "type": "State",
+      "name": "State Dependent (E.g. Telangana, Maharashtra)",
+      "id": "STATE_STATE_DEPENDENT_(E.G._TELANGANA,_MAHARASHTRA)"
+    },
+    {
+      "type": "Category",
+      "name": "Property",
+      "id": "CAT_PROPERTY"
+    },
+    {
+      "type": "Service",
+      "name": "Voter ID Registration (EPIC)",
+      "description": "The Electors Photo Identity Card (EPIC) is a photographic identity card issued by the Election Commission of India. It serves as an identity proof for casting votes in democratic elections.",
+      "id": "VOTER_ID_REGISTRATION_(EPIC)"
+    },
+    {
+      "type": "Authority",
+      "name": "Election Commission of India (ECI)",
+      "id": "AUTH_ELECTION_COMMISSION_OF_INDIA_(ECI)"
+    },
+    {
+      "type": "Category",
+      "name": "Identity, Voting",
+      "id": "CAT_IDENTITY,_VOTING"
+    }
+  ],
+  "links": [
+    {
+      "type": "SCHEME_HAS_ELIGIBILITY",
+      "source": "GUIDELINES_CSS_SCHOLARSHIP",
+      "target": "GUIDELINES_CSS_SCHOLARSHIP_CRIT_0",
+      "key": "SCHEME_HAS_ELIGIBILITY"
+    },
+    {
+      "type": "SCHEME_HAS_ELIGIBILITY",
+      "source": "GUIDELINES_CSS_SCHOLARSHIP",
+      "target": "GUIDELINES_CSS_SCHOLARSHIP_CRIT_1",
+      "key": "SCHEME_HAS_ELIGIBILITY"
+    },
+    {
+      "type": "SCHEME_HAS_ELIGIBILITY",
+      "source": "GUIDELINES_CSS_SCHOLARSHIP",
+      "target": "GUIDELINES_CSS_SCHOLARSHIP_CRIT_2",
+      "key": "SCHEME_HAS_ELIGIBILITY"
+    },
+    {
+      "type": "SCHEME_PROVIDES_BENEFIT",
+      "source": "GUIDELINES_CSS_SCHOLARSHIP",
+      "target": "GUIDELINES_CSS_SCHOLARSHIP_BEN_0",
+      "key": "SCHEME_PROVIDES_BENEFIT"
+    },
+    {
+      "type": "SCHEME_AVAILABLE_IN_STATE",
+      "source": "GUIDELINES_CSS_SCHOLARSHIP",
+      "target": "STATE_ALL_INDIA",
+      "key": "SCHEME_AVAILABLE_IN_STATE"
+    },
+    {
+      "type": "SCHEME_TARGETS_GROUP",
+      "source": "GUIDELINES_CSS_SCHOLARSHIP",
+      "target": "TARGET_CITIZENS",
+      "key": "SCHEME_TARGETS_GROUP"
+    },
+    {
+      "type": "SCHEME_TARGETS_GROUP",
+      "source": "GUIDELINES_CSS_SCHOLARSHIP",
+      "target": "TARGET_STUDENT",
+      "key": "SCHEME_TARGETS_GROUP"
+    },
+    {
+      "type": "SCHEME_TARGETS_GROUP",
+      "source": "GUIDELINES_CSS_SCHOLARSHIP",
+      "target": "CAT_GENERAL",
+      "key": "SCHEME_TARGETS_GROUP"
+    },
+    {
+      "type": "SCHEME_TARGETS_GROUP",
+      "source": "GUIDELINES_CSS_SCHOLARSHIP",
+      "target": "CAT_STUDENT",
+      "key": "SCHEME_TARGETS_GROUP"
+    },
+    {
+      "type": "SERVICE_PERFORMED_BY",
+      "source": "GUIDELINES_CSS_SCHOLARSHIP.PDF",
+      "target": "AUTH_GOVT_OF_INDIA",
+      "key": "SERVICE_PERFORMED_BY"
+    },
+    {
+      "type": "SERVICE_AVAILABLE_IN_STATE",
+      "source": "GUIDELINES_CSS_SCHOLARSHIP.PDF",
+      "target": "STATE_ALL_INDIA",
+      "key": "SERVICE_AVAILABLE_IN_STATE"
+    },
+    {
+      "type": "SCHEME_TARGETS_GROUP",
+      "source": "GUIDELINES_CSS_SCHOLARSHIP.PDF",
+      "target": "CAT_SC/ST_/OBC/_GENERAL_:",
+      "key": "SCHEME_TARGETS_GROUP"
+    },
+    {
+      "type": "SERVICE_PERFORMED_BY",
+      "source": "AADHAAR_ENROLLMENT_AND_UPDATE",
+      "target": "AUTH_UNIQUE_IDENTIFICATION_AUTHORITY_OF_INDIA_(UIDAI)",
+      "key": "SERVICE_PERFORMED_BY"
+    },
+    {
+      "type": "SERVICE_AVAILABLE_IN_STATE",
+      "source": "AADHAAR_ENROLLMENT_AND_UPDATE",
+      "target": "STATE_ALL_INDIA",
+      "key": "SERVICE_AVAILABLE_IN_STATE"
+    },
+    {
+      "type": "SCHEME_TARGETS_GROUP",
+      "source": "AADHAAR_ENROLLMENT_AND_UPDATE",
+      "target": "CAT_IDENTITY",
+      "key": "SCHEME_TARGETS_GROUP"
+    },
+    {
+      "type": "SERVICE_PERFORMED_BY",
+      "source": "AYUSHMAN_BHARAT_PRADHAN_MANTRI_JAN_AROGYA_YOJANA_(AB-PMJAY)",
+      "target": "AUTH_GOVT_OF_INDIA",
+      "key": "SERVICE_PERFORMED_BY"
+    },
+    {
+      "type": "SERVICE_AVAILABLE_IN_STATE",
+      "source": "AYUSHMAN_BHARAT_PRADHAN_MANTRI_JAN_AROGYA_YOJANA_(AB-PMJAY)",
+      "target": "STATE_ALL_INDIA_(EXCEPT_SPECIFIC_UN-ADOPTED_STATES)",
+      "key": "SERVICE_AVAILABLE_IN_STATE"
+    },
+    {
+      "type": "SCHEME_TARGETS_GROUP",
+      "source": "AYUSHMAN_BHARAT_PRADHAN_MANTRI_JAN_AROGYA_YOJANA_(AB-PMJAY)",
+      "target": "TARGET_POOR_AND_VULNERABLE_FAMILIES_(BPL)",
+      "key": "SCHEME_TARGETS_GROUP"
+    },
+    {
+      "type": "SCHEME_TARGETS_GROUP",
+      "source": "AYUSHMAN_BHARAT_PRADHAN_MANTRI_JAN_AROGYA_YOJANA_(AB-PMJAY)",
+      "target": "CAT_HEALTH",
+      "key": "SCHEME_TARGETS_GROUP"
+    },
+    {
+      "type": "SERVICE_PERFORMED_BY",
+      "source": "INDIAN_PASSPORT_ISSUANCE",
+      "target": "AUTH_MINISTRY_OF_EXTERNAL_AFFAIRS,_CONSULAR,_PASSPORT_AND_VISA_(CPV)_DIVISION",
+      "key": "SERVICE_PERFORMED_BY"
+    },
+    {
+      "type": "SERVICE_AVAILABLE_IN_STATE",
+      "source": "INDIAN_PASSPORT_ISSUANCE",
+      "target": "STATE_ALL_INDIA",
+      "key": "SERVICE_AVAILABLE_IN_STATE"
+    },
+    {
+      "type": "SCHEME_TARGETS_GROUP",
+      "source": "INDIAN_PASSPORT_ISSUANCE",
+      "target": "CAT_TRAVEL,_IDENTITY",
+      "key": "SCHEME_TARGETS_GROUP"
+    },
+    {
+      "type": "SERVICE_PERFORMED_BY",
+      "source": "PM-KISAN_SAMMAN_NIDHI",
+      "target": "AUTH_GOVT_OF_INDIA",
+      "key": "SERVICE_PERFORMED_BY"
+    },
+    {
+      "type": "SERVICE_AVAILABLE_IN_STATE",
+      "source": "PM-KISAN_SAMMAN_NIDHI",
+      "target": "STATE_ALL_INDIA",
+      "key": "SERVICE_AVAILABLE_IN_STATE"
+    },
+    {
+      "type": "SCHEME_TARGETS_GROUP",
+      "source": "PM-KISAN_SAMMAN_NIDHI",
+      "target": "TARGET_FARMER",
+      "key": "SCHEME_TARGETS_GROUP"
+    },
+    {
+      "type": "SCHEME_TARGETS_GROUP",
+      "source": "PM-KISAN_SAMMAN_NIDHI",
+      "target": "CAT_AGRICULTURE",
+      "key": "SCHEME_TARGETS_GROUP"
+    },
+    {
+      "type": "SERVICE_PERFORMED_BY",
+      "source": "LAND_AND_PROPERTY_REGISTRATION",
+      "target": "AUTH_INSPECTOR_GENERAL_OF_REGISTRATION_(IGR)_AND_STAMPS_DEPARTMENT_(STATE-LEVEL)",
+      "key": "SERVICE_PERFORMED_BY"
+    },
+    {
+      "type": "SERVICE_AVAILABLE_IN_STATE",
+      "source": "LAND_AND_PROPERTY_REGISTRATION",
+      "target": "STATE_STATE_DEPENDENT_(E.G._TELANGANA,_MAHARASHTRA)",
+      "key": "SERVICE_AVAILABLE_IN_STATE"
+    },
+    {
+      "type": "SCHEME_TARGETS_GROUP",
+      "source": "LAND_AND_PROPERTY_REGISTRATION",
+      "target": "CAT_PROPERTY",
+      "key": "SCHEME_TARGETS_GROUP"
+    },
+    {
+      "type": "SERVICE_PERFORMED_BY",
+      "source": "VOTER_ID_REGISTRATION_(EPIC)",
+      "target": "AUTH_ELECTION_COMMISSION_OF_INDIA_(ECI)",
+      "key": "SERVICE_PERFORMED_BY"
+    },
+    {
+      "type": "SERVICE_AVAILABLE_IN_STATE",
+      "source": "VOTER_ID_REGISTRATION_(EPIC)",
+      "target": "STATE_ALL_INDIA",
+      "key": "SERVICE_AVAILABLE_IN_STATE"
+    },
+    {
+      "type": "SCHEME_TARGETS_GROUP",
+      "source": "VOTER_ID_REGISTRATION_(EPIC)",
+      "target": "CAT_IDENTITY,_VOTING",
+      "key": "SCHEME_TARGETS_GROUP"
+    }
+  ]
+}

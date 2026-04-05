@@ -1,0 +1,29 @@
+
+Service Name: Land and Property Registration
+Type: Property Service
+Description: Registration of property transfers, sales, and agreements under the Registration Act 1908. Essential for assigning legal title to property owners and paying the correct ad-valorem local stamp duty rates.
+
+Authority: Inspector General of Registration (IGR) and Stamps Department (State-level)
+Category: Property
+State: State Dependent (E.g. Telangana, Maharashtra)
+
+Fees:
+- Stamp Duty (Varies 3% - 7% based on the state and urban/rural location)
+- Registration Fee (Usually 1% of the property value)
+
+Required Documents:
+- Sale Deed / Title Documents
+- Encumbrance Certificate (EC)
+- ID proofs of Buyer, Seller, and Witnesses (Aadhaar/PAN)
+- Passport size photographs
+- Pattadar Passbook / Mutation details 
+- Property Tax receipts (latest)
+
+Procedure:
+1. Estimate the property's market value using State government's fixed guidelines/circle rates.
+2. Purchase Stamp Papers or pay Stamp Duty online via State specific portal (e.g. IGRS Telangana).
+3. Draft the Sale Deed with the help of a lawyer or document writer.
+4. Book a slot at the local Sub-Registrar Office (SRO).
+5. Both buyer, seller, and two witnesses must be physically present at the SRO.
+6. Provide biometric thumbs and photos for final registration.
+7. Collect the registered deed.

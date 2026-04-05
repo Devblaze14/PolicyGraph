@@ -1,0 +1,25 @@
+
+Scheme Name: Ayushman Bharat Pradhan Mantri Jan Arogya Yojana (AB-PMJAY)
+Type: Scheme
+Description: A flagship scheme of the Government of India providing a health cover of Rs. 5 lakhs per family per year for secondary and tertiary care hospitalization to over 12 crore poor and vulnerable families (approximately 55 crore beneficiaries).
+
+Target Beneficiary: Poor and vulnerable families (BPL)
+Category: Health
+State: All India (except specific un-adopted states)
+
+Eligibility Criteria:
+1. Must belong to the deprived rural categories or identified occupational categories of urban workers described in the Socio-Economic Caste Census (SECC) 2011 database.
+2. No cap on family size or age (age >= 0).
+3. Income must be below poverty line thresholds or belong to SC/ST households (income <= 150000).
+
+Benefits:
+- Health cover of ₹ 5,000,000 (5 Lakhs) per family per annum.
+- Cashless and paperless access to quality health care services at empanelled hospitals.
+
+Required Documents:
+- Ayushman Card (PMJAY Golden Card)
+- Aadhaar Card
+- Family documentation (Ration Card)
+
+Application Process:
+Eligible families are automatically enrolled based on SECC data. Beneficiaries must authenticate via Aadhaar at empanelled hospitals or CSCs to generate an e-card.
