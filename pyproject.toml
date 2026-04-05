@@ -1,0 +1,37 @@
+[project]
+name = "rag_gov"
+version = "0.1.0"
+description = "Policy-Aware Graph-Enhanced RAG System for Personalized Government Scheme Eligibility and Guidance"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "pydantic>=2.0.0",
+    "python-dotenv",
+    "requests",
+    "tqdm",
+    "pymupdf",
+    "pytesseract",
+    "pillow",
+    "pypdf2",
+    "pandas",
+    "numpy",
+    "scikit-learn",
+    "sentence-transformers",
+    "chromadb",
+    "networkx",
+    "neo4j~=5.0",
+    "langchain",
+    "loguru",
+    "streamlit",
+    "beautifulsoup4",
+    "lxml",
+]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
