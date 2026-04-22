@@ -1,0 +1,30 @@
+
+Service Name: Aadhaar Enrollment and Update
+Type: Identity Service
+Description: Aadhaar is a 12-digit individual identification number issued by the Unique Identification Authority of India (UIDAI) on behalf of the Government of India. The number serves as a proof of identity and address, anywhere in India.
+
+Authority: Unique Identification Authority of India (UIDAI)
+Category: Identity
+State: All India
+
+Eligibility Criteria:
+1. Any resident of India can apply for Aadhaar (No age limit).
+
+Fees:
+- Aadhaar Enrollment: Free
+- Mandatory Biometric Update (5 & 15 yrs): Free
+- Demographic Update (Name, Address, DOB, Gender, Mobile, Email): Rs. 50
+- Biometric Update: Rs. 100
+
+Required Documents:
+- Proof of Identity (POI): Passport, PAN Card, Ration/PDS Photo Card, Voter ID, Driving License.
+- Proof of Address (POA): Passport, Bank Statement/Passbook, Ration Card, Voter ID, Driving License, Electricity/Water/Telephone Bill (not older than 3 months).
+- Proof of Date of Birth (DOB): Birth Certificate, SSLC Book/Certificate, Passport.
+
+Procedure:
+1. Locate an Enrollment Center nearby (UIDAI website).
+2. Book an Appointment (Optional but recommended).
+3. Visit the center with the required supporting documents.
+4. Fill demographic details on the enrollment form.
+5. Provide biometrics (fingerprints, iris, facial photograph).
+6. Collect enrollment acknowledgment slip.

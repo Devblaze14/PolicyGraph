@@ -1,84 +1,120 @@
 from __future__ import annotations
 
-import json
-from dataclasses import dataclass
+import os
+import pickle
 from pathlib import Path
 from typing import List, Dict, Any
 
-import numpy as np
-from sentence_transformers import SentenceTransformer
+from langchain_community.vectorstores import FAISS
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.retrievers import BM25Retriever
+from langchain_core.documents import Document
 
 from config import config
 from logging_utils import logger
 
 
-@dataclass
-class VectorRecord:
-    doc_id: str
-    chunk_id: str
-    text: str
-    metadata: Dict[str, Any]
-
-
-class SimpleVectorStore:
+class FAISSVectorStore:
     """
-    Minimal in-memory vector store backed by numpy arrays.
-    Good enough for a student-scale prototype.
+    Production-ready hybrid vector store using FAISS, BM25, and LangChain HuggingFaceEmbeddings.
     """
 
     def __init__(self, model_name: str | None = None):
-        self.model_name = model_name or config.embeddings.model_name
-        self.model = SentenceTransformer(self.model_name)
-        self.records: List[VectorRecord] = []
-        self.embeddings: np.ndarray | None = None
+        self.model_name = model_name or config.model_name
+        logger.info(f"Initializing embedding model: {self.model_name}")
+        self.embeddings = HuggingFaceEmbeddings(model_name=self.model_name)
+        self.vector_store: FAISS | None = None
+        self.bm25_retriever: BM25Retriever | None = None
+        self.index_path = config.paths.data_indices / "faiss_index"
+        self.bm25_path = config.paths.data_indices / "bm25.pkl"
+        self.all_docs: List[Document] = []
 
-    def load_chunks(self, chunks_file: Path | None = None) -> None:
-        chunks_file = chunks_file or (config.paths.data_processed / "chunks.jsonl")
-        if not chunks_file.exists():
-            raise FileNotFoundError(f"Chunks file not found: {chunks_file}")
-        logger.info(f"Loading chunks from {chunks_file}\n")
-        self.records.clear()
-        with chunks_file.open("r", encoding="utf-8") as f:
-            for line in f:
-                row = json.loads(line)
-                self.records.append(
-                    VectorRecord(
-                        doc_id=row["doc_id"],
-                        chunk_id=row["chunk_id"],
-                        text=row["text"],
-                        metadata=row.get("metadata", {}),
-                    )
-                )
+    def add_documents(self, documents: List[Document]) -> None:
+        if not documents:
+            return
+        logger.info(f"Adding {len(documents)} documents to FAISS & BM25 index.")
+        self.all_docs.extend(documents)
+        
+        # Add to FAISS
+        if self.vector_store is None:
+            self.vector_store = FAISS.from_documents(documents, self.embeddings)
+        else:
+            self.vector_store.add_documents(documents)
+            
+        # Add to BM25
+        self.bm25_retriever = BM25Retriever.from_documents(self.all_docs)
 
-    def build_index(self, batch_size: int | None = None) -> None:
-        batch_size = batch_size or config.embeddings.batch_size
-        texts = [r.text for r in self.records]
-        logger.info(f"Encoding {len(texts)} chunks with model={self.model_name}\n")
-        embs = self.model.encode(texts, batch_size=batch_size, show_progress_bar=True, convert_to_numpy=True)
-        self.embeddings = embs.astype("float32")
+    def load_index(self) -> None:
+        # Load FAISS
+        if self.index_path.exists() and (self.index_path / "index.faiss").exists():
+            logger.info(f"Loading local FAISS index from {self.index_path}")
+            self.vector_store = FAISS.load_local(str(self.index_path), self.embeddings, allow_dangerous_deserialization=True)
+        else:
+            logger.warning(f"FAISS index not found at {self.index_path}. It will be empty.")
+            
+        # Load BM25
+        if self.bm25_path.exists():
+            logger.info(f"Loading local BM25 index from {self.bm25_path}")
+            with self.bm25_path.open("rb") as f:
+                self.bm25_retriever = pickle.load(f)
 
-    def search(self, query: str, k: int = 5) -> List[Dict[str, Any]]:
-        if self.embeddings is None:
-            raise RuntimeError("Embeddings index not built.")
-        q = self.model.encode([query], convert_to_numpy=True).astype("float32")[0]
-        q_norm = q / (np.linalg.norm(q) + 1e-8)
-        doc_norms = self.embeddings / (np.linalg.norm(self.embeddings, axis=1, keepdims=True) + 1e-8)
-        scores = doc_norms @ q_norm
-        top_idx = np.argsort(-scores)[:k]
-        results: List[Dict[str, Any]] = []
-        for idx in top_idx:
-            rec = self.records[int(idx)]
-            results.append(
-                {
-                    "score": float(scores[int(idx)]),
-                    "doc_id": rec.doc_id,
-                    "chunk_id": rec.chunk_id,
-                    "text": rec.text,
-                    "metadata": rec.metadata,
-                }
-            )
-        return results
+    def save_index(self) -> None:
+        # Save FAISS
+        if self.vector_store is not None:
+            logger.info(f"Saving FAISS index to {self.index_path}")
+            self.vector_store.save_local(str(self.index_path))
+            
+        # Save BM25
+        if self.bm25_retriever is not None:
+            logger.info(f"Saving BM25 index to {self.bm25_path}")
+            with self.bm25_path.open("wb") as f:
+                pickle.dump(self.bm25_retriever, f)
 
+    def similarity_search(self, query: str, k: int = 5) -> List[Dict[str, Any]]:
+        if self.vector_store is None and self.bm25_retriever is None:
+            return []
+            
+        def reciprocal_rank_fusion(faiss_results, bm25_results, k=60):
+            fusion_scores = {}
+            for rank, (doc, score) in enumerate(faiss_results):
+                doc_id = doc.page_content
+                fusion_scores[doc_id] = fusion_scores.get(doc_id, {"metadata": doc.metadata, "score": 0})
+                fusion_scores[doc_id]["score"] += 1 / (rank + k)
+                
+            for rank, doc in enumerate(bm25_results):
+                doc_id = doc.page_content
+                fusion_scores[doc_id] = fusion_scores.get(doc_id, {"metadata": doc.metadata, "score": 0})
+                fusion_scores[doc_id]["score"] += 1 / (rank + k)
+                
+            sorted_docs = sorted(fusion_scores.items(), key=lambda x: x[1]["score"], reverse=True)
+            return sorted_docs
 
-__all__ = ["SimpleVectorStore", "VectorRecord"]
+        if self.vector_store and self.bm25_retriever:
+            faiss_res = self.vector_store.similarity_search_with_score(query, k=k)
+            self.bm25_retriever.k = k
+            bm25_res = self.bm25_retriever.invoke(query)
+            
+            fused = reciprocal_rank_fusion(faiss_res, bm25_res)
+            
+            ret = []
+            for doc_text, info in fused[:k]:
+                ret.append({
+                    "score": info["score"], 
+                    "text": doc_text,
+                    "metadata": info["metadata"]
+                })
+            return ret
+            
+        elif self.vector_store:
+            # Fallback to pure FAISS
+            results = self.vector_store.similarity_search_with_score(query, k=k)
+            ret = []
+            for doc, score in results:
+                ret.append({
+                    "score": float(score),
+                    "text": doc.page_content,
+                    "metadata": doc.metadata
+                })
+            return ret
 
+__all__ = ["FAISSVectorStore", "Document"]

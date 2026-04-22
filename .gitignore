@@ -1,0 +1,41 @@
+# Environment & secrets
+.env
+*.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.venv/
+venv/
+env/
+
+# Data indices (large binary files - regenerate with run_ingest.py)
+data/indices/faiss_index/
+data/indices/bm25.pkl
+data/indices/graph.json
+data/processed/
+
+# Logs
+*.log
+server_log.txt
+error.txt
+
+# Node
+ui/frontend/node_modules/
+ui/frontend/dist/
+ui/frontend/.vite/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

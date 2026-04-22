@@ -2,49 +2,89 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Dict, List, Callable
-
+from typing import Any, Dict, List, Optional
+from logging_utils import logger
 
 class Comparison(str, Enum):
     LTE = "<="
     GTE = ">="
     EQ = "=="
     IN = "in"
+    LT = "<"
+    GT = ">"
+    CONTAINS = "contains"
 
 
 @dataclass
 class AtomicRule:
     """
-    A simple atomic rule such as:
-      profile.income <= 250000
-      profile.age >= 18
-      profile.category in ["SC", "ST"]
+    Dynamically loaded rule from the Knowledge Graph.
+    Can be instantiated from properties of a Criterion node.
     """
-
     field: str
     op: Comparison
     value: Any
     description: str
 
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> AtomicRule:
+        return cls(
+            field=str(data.get("field", "")),
+            op=Comparison(data.get("operator", "==")),
+            value=data.get("value"),
+            description=str(data.get("description", ""))
+        )
+
     def evaluate(self, profile: Dict[str, Any]) -> bool | None:
-        if self.field not in profile:
+        if self.field not in profile or profile[self.field] is None:
             return None  # unknown / missing
         v = profile[self.field]
+        val = self.value
+        
+        # Basic type coercion if comparing numbers to string rules
+        try:
+            if isinstance(v, (int, float)) and isinstance(val, (str, int, float)):
+                val = float(val)
+                v = float(v)
+        except (ValueError, TypeError):
+            pass
+
         if self.op == Comparison.LTE:
-            return v <= self.value
+            return v <= val
+        if self.op == Comparison.LT:
+            return v < val
         if self.op == Comparison.GTE:
-            return v >= self.value
+            return v >= val
+        if self.op == Comparison.GT:
+            return v > val
         if self.op == Comparison.EQ:
-            return v == self.value
+            # Handle boolean strings/types
+            if str(val).lower() in ["true", "yes"]:
+                val = True
+            if str(val).lower() in ["false", "no"]:
+                val = False
+            return v == val
         if self.op == Comparison.IN:
-            return v in self.value
+            if isinstance(val, str):
+                val = [x.strip() for x in val.split(",")]
+            # Ensure val is a list/set for membership test
+            if not isinstance(val, (list, set, tuple)):
+                val = [val]
+            # Handle "All" as a wildcard
+            if any(str(x).lower() == "all" for x in val):
+                return True
+            return v in val
+        if self.op == Comparison.CONTAINS:
+            return str(val).lower() in str(v).lower()
         return None
 
 
 @dataclass
 class EligibilityRuleSet:
     scheme_id: str
+    scheme_name: str
     rules: List[AtomicRule]
+    benefits: str
     provenance: Dict[str, Any]
 
     def evaluate(self, profile: Dict[str, Any]) -> Dict[str, Any]:
@@ -65,12 +105,12 @@ class EligibilityRuleSet:
 
         return {
             "scheme_id": self.scheme_id,
+            "scheme_name": self.scheme_name,
             "label": label,
             "results": results,
             "missing_fields": sorted(set(missing)),
+            "benefits": self.benefits,
             "provenance": self.provenance,
         }
 
-
 __all__ = ["Comparison", "AtomicRule", "EligibilityRuleSet"]
-

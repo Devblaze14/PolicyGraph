@@ -1,0 +1,26 @@
+
+Service Name: Indian Passport Issuance
+Type: Identity & Travel Service
+Description: An Indian passport is issued by order of the President of India to Indian citizens for the purpose of international travel. It enables the bearer to travel internationally and serves as proof of Indian citizenship.
+
+Authority: Ministry of External Affairs, Consular, Passport and Visa (CPV) Division
+Category: Travel, Identity
+State: All India
+
+Fees:
+- Fresh Passport/Re-issue (36 pages) Normal: Rs. 1,500
+- Fresh Passport/Re-issue (36 pages) Tatkaal: Rs. 3,500
+- Minor Passport (Below 18 yrs, 5 yr validity) Normal: Rs. 1,000
+
+Required Documents:
+- Aadhaar Card / E-Aadhaar.
+- Proof of Date of Birth: Birth Certificate, PAN Card, School Leaving Certificate.
+- Proof of Present Address: Water Bill, Telephone Bill, Electricity Bill, Income Tax Assessment Order, Election Commission Photo ID card, Aadhaar Card, Rent Agreement.
+
+Procedure:
+1. Register on the Passport Seva Online Portal and login.
+2. Click on "Apply for Fresh Passport/Re-issue of Passport" link.
+3. Fill the application form and submit it.
+4. Click the "Pay and Schedule Appointment" link to schedule an appointment at a Passport Seva Kendra (PSK) / Post Office Passport Seva Kendra (POPSK).
+5. Visit the PSK with original documents on the scheduled date.
+6. Police verification will proceed either pre or post issuance based on checks.

@@ -1,0 +1,30 @@
+
+Service Name: Voter ID Registration (EPIC)
+Type: Identity Service
+Description: The Electors Photo Identity Card (EPIC) is a photographic identity card issued by the Election Commission of India. It serves as an identity proof for casting votes in democratic elections.
+
+Authority: Election Commission of India (ECI)
+Category: Identity, Voting
+State: All India
+
+Eligibility Criteria:
+1. Must be a citizen of India.
+2. Age must be at least 18 years on the qualifying date (usually 1st January of the year).
+3. Must be ordinarily resident of the polling area constituency.
+
+Fees:
+- Free for a new registration.
+
+Required Documents:
+- Form 6 (Application form for new voters).
+- Passport size photograph.
+- Proof of Age (Birth Certificate, Class 10/12 mark sheet, PAN Card, Aadhaar Card).
+- Proof of Residence (Aadhaar Card, Bank Passbook, Ration Card, Utility Bills).
+
+Procedure:
+1. Register on the National Voter's Service Portal (NVSP) or the Voter Helpline App.
+2. Fill Form 6 with accurate details.
+3. Upload passport size photo and required documents (Age & Address proof).
+4. Submit the form to generate a reference ID.
+5. A Booth Level Officer (BLO) may visit for physical verification.
+6. Once approved, the EPIC will be delivered to the registered address.

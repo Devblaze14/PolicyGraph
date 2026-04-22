@@ -1,35 +1,40 @@
 from enum import Enum
-from dataclasses import dataclass
+from pydantic import BaseModel, Field
 from typing import Dict, Any
 
-
 class NodeType(str, Enum):
+    SERVICE = "Service"
     SCHEME = "Scheme"
-    CRITERION = "Criterion"
-    BENEFIT = "Benefit"
     DOCUMENT = "Document"
-
+    PROCEDURE = "Procedure"
+    AUTHORITY = "Authority"
+    FEE = "Fee"
+    CRITERION = "EligibilityCriterion"
+    BENEFIT = "Benefit"
+    STATE = "State"
+    CATEGORY = "Category"
+    TARGET_GROUP = "TargetGroup"
 
 class EdgeType(str, Enum):
-    HAS_CRITERION = "HAS_CRITERION"
-    PROVIDES = "PROVIDES"
+    REQUIRES_DOCUMENT = "SERVICE_REQUIRES_DOCUMENT"
+    PERFORMED_BY = "SERVICE_PERFORMED_BY"
+    HAS_PROCEDURE = "SERVICE_HAS_PROCEDURE"
+    HAS_FEE = "SERVICE_HAS_FEE"
+    AVAILABLE_IN = "SERVICE_AVAILABLE_IN_STATE"
+    HAS_ELIGIBILITY = "SCHEME_HAS_ELIGIBILITY"
+    PROVIDES_BENEFIT = "SCHEME_PROVIDES_BENEFIT"
+    TARGETS = "SCHEME_TARGETS_GROUP"
     CITES = "CITES"
 
-
-@dataclass
-class Node:
+class Node(BaseModel):
     id: str
     type: NodeType
-    properties: Dict[str, Any]
+    properties: Dict[str, Any] = Field(default_factory=dict)
 
-
-@dataclass
-class Edge:
+class Edge(BaseModel):
     source: str
     target: str
     type: EdgeType
-    properties: Dict[str, Any]
-
+    properties: Dict[str, Any] = Field(default_factory=dict)
 
 __all__ = ["NodeType", "EdgeType", "Node", "Edge"]
-
