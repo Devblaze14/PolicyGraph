@@ -41,28 +41,50 @@ class AtomicRule:
         v = profile[self.field]
         val = self.value
         
+        # Basic normalization for booleans
+        def normalize_bool(x: Any) -> Any:
+            if isinstance(x, bool):
+                return x
+            if str(x).lower() in ["true", "yes", "y"]:
+                return True
+            if str(x).lower() in ["false", "no", "n"]:
+                return False
+            return x
+
+        # Coerce both to bool if either looks like a bool
+        v_norm = normalize_bool(v)
+        val_norm = normalize_bool(val)
+        if isinstance(v_norm, bool) or isinstance(val_norm, bool):
+            v = v_norm
+            val = val_norm
+
         # Basic type coercion if comparing numbers to string rules
         try:
-            if isinstance(v, (int, float)) and isinstance(val, (str, int, float)):
-                val = float(val)
-                v = float(v)
+            # If both are numbers or strings that look like numbers
+            if not isinstance(v, bool) and not isinstance(val, bool):
+                v_f = float(v)
+                val_f = float(val)
+                v = v_f
+                val = val_f
         except (ValueError, TypeError):
             pass
 
         if self.op == Comparison.LTE:
-            return v <= val
+            try: return v <= val
+            except: return False
         if self.op == Comparison.LT:
-            return v < val
+            try: return v < val
+            except: return False
         if self.op == Comparison.GTE:
-            return v >= val
+            try: return v >= val
+            except: return False
         if self.op == Comparison.GT:
-            return v > val
+            try: return v > val
+            except: return False
         if self.op == Comparison.EQ:
-            # Handle boolean strings/types
-            if str(val).lower() in ["true", "yes"]:
-                val = True
-            if str(val).lower() in ["false", "no"]:
-                val = False
+            # Case-insensitive string comparison
+            if isinstance(v, str) and isinstance(val, str):
+                return v.lower() == val.lower()
             return v == val
         if self.op == Comparison.IN:
             if isinstance(val, str):
@@ -70,9 +92,16 @@ class AtomicRule:
             # Ensure val is a list/set for membership test
             if not isinstance(val, (list, set, tuple)):
                 val = [val]
-            # Handle "All" as a wildcard
-            if any(str(x).lower() == "all" for x in val):
+            
+            # Handle "All" / "All India" as wildcards
+            wildcards = ["all", "all india", "all states", "any"]
+            if any(str(x).lower() in wildcards for x in val):
                 return True
+            
+            # Case-insensitive check for strings
+            if isinstance(v, str):
+                return any(str(x).lower() == v.lower() for x in val)
+            
             return v in val
         if self.op == Comparison.CONTAINS:
             return str(val).lower() in str(v).lower()

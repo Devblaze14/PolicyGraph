@@ -10,47 +10,53 @@ export default function Eligibility() {
         age: "",
         income: "",
         occupation: "",
-        location: "",
+        state: "",
         category: "General"
     })
 
     const [loading, setLoading] = useState(false)
     const [results, setResults] = useState(null)
 
-    const handleCheck = (e) => {
+    const handleCheck = async (e) => {
         e.preventDefault()
         setLoading(true)
+        setResults(null)
 
-        // Simulate check
-        setTimeout(() => {
+        try {
+            const profile = {
+                age: formData.age ? parseInt(formData.age) : null,
+                income: formData.income ? parseFloat(formData.income) : null,
+                occupation: formData.occupation,
+                state: formData.state,
+                category: formData.category
+            }
+
+            const res = await fetch("http://localhost:8000/eligibility", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ profile })
+            })
+
+            if (!res.ok) throw new Error("Eligibility check failed.")
+
+            const data = await res.json()
+            
+            // Map backend results to frontend format
+            const mappedResults = data.results.map(r => ({
+                id: r.scheme_id,
+                title: r.scheme_name,
+                status: r.label, // ELIGIBLE, NOT_ELIGIBLE, INSUFFICIENT_INFO
+                reason: r.explanation ? r.explanation.split(" | ") : [],
+                benefits: r.benefits
+            }))
+
+            setResults(mappedResults)
+        } catch (error) {
+            console.error(error)
+            alert("Error connecting to eligibility engine.")
+        } finally {
             setLoading(false)
-            setResults([
-                {
-                    id: "PM_KISAN",
-                    title: "PM-KISAN",
-                    status: "ELIGIBLE",
-                    score: 100,
-                    reason: ["Age > 18 (Valid)", "Income < 200,000 (Valid)", "Occupation = Farmer (Valid)"],
-                    benefits: "₹6,000 per year paid in three equal installments."
-                },
-                {
-                    id: "PMAY",
-                    title: "PM Awas Yojana",
-                    status: "NOT_ELIGIBLE",
-                    score: 45,
-                    reason: ["Income limit > 300,000 (Failed)"],
-                    benefits: "Interest subsidy on housing loans."
-                },
-                {
-                    id: "AYUSHMAN",
-                    title: "Ayushman Bharat",
-                    status: "NEEDS_INFO",
-                    score: 80,
-                    reason: ["SECC Database verification required."],
-                    benefits: "Health cover of ₹5 lakhs per family per year."
-                }
-            ])
-        }, 1500)
+        }
     }
 
     const handleChange = (e) => {
@@ -104,7 +110,7 @@ export default function Eligibility() {
                         <div>
                             <label className="block text-sm font-medium text-slate-300 mb-2">State / Location</label>
                             <input
-                                type="text" name="location" value={formData.location} onChange={handleChange} required
+                                type="text" name="state" value={formData.state} onChange={handleChange} required
                                 className="styled-input" placeholder="e.g. Rajasthan"
                             />
                         </div>
@@ -159,7 +165,7 @@ export default function Eligibility() {
 
                                     const isEl = res.status === "ELIGIBLE"
                                     const isNot = res.status === "NOT_ELIGIBLE"
-                                    const isInfo = res.status === "NEEDS_INFO"
+                                    const isInfo = res.status === "INSUFFICIENT_INFO"
 
                                     return (
                                         <motion.div

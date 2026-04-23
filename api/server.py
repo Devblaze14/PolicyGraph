@@ -149,6 +149,19 @@ def ask(request: QueryRequest) -> QueryResponse:
         "fees": [],
         "authority": "Unknown"
     }
+
+    # Out-of-scope detection: If confidence is extremely low and no graph context
+    if (confidence < 0.012 and not potential_services) or (not hits and not potential_services):
+        return QueryResponse(
+            answer="The entered input is not matching with any schema. Please ask about Indian government schemes, policies, or civic services.",
+            steps=[],
+            documents_required=[],
+            fees=[],
+            authority="N/A",
+            schemes=[],
+            sources=[],
+            confidence_score=confidence
+        )
     
     import json
     if HAS_LLM:
@@ -169,8 +182,9 @@ def ask(request: QueryRequest) -> QueryResponse:
             1. If the context contains the answer, synthesize it clearly.
             2. If the context is incomplete, use your broad knowledge of Indian government procedures to fill in the gaps (e.g. standard document requirements like Aadhaar, PAN, etc.).
             3. If the question is general (e.g. "schemes for farmers"), summarize the most relevant schemes found in the context.
-            4. Be extremely detailed in the "steps" and "documents_required" sections.
-            5. Provide a strict JSON response.
+            4. If the question is completely unrelated to government schemes, policies, or civic services, state that the input does not match any known schemes.
+            5. Be extremely detailed in the "steps" and "documents_required" sections.
+            6. Provide a strict JSON response.
             
             JSON Response Schema:
             {{
@@ -188,7 +202,7 @@ def ask(request: QueryRequest) -> QueryResponse:
                 response = client.chat.completions.create(
                     model="llama-3.3-70b-versatile",
                     messages=[{"role": "system", "content": "You are a helpful Indian government policy expert. Return only JSON."},
-                              {"role": "user", "content": prompt}],
+                               {"role": "user", "content": prompt}],
                     response_format={"type": "json_object"}
                 )
                 raw_json = response.choices[0].message.content
@@ -233,12 +247,26 @@ def ask(request: QueryRequest) -> QueryResponse:
             else:
                 response_data["answer"] = f"An error occurred while generating the answer: {err_str[:150]}... Please refer to the source evidence below."
 
+    # Normalization to prevent Pydantic Validation Errors
+    def to_list(val: Any) -> List[str]:
+        if isinstance(val, list):
+            return [str(x) for x in val]
+        if isinstance(val, str):
+            if not val.strip(): return []
+            return [val]
+        return []
+
+    def to_str(val: Any) -> str:
+        if isinstance(val, list):
+            return ", ".join([str(x) for x in val])
+        return str(val) if val is not None else "Unknown"
+
     return QueryResponse(
-        answer=response_data.get("answer", "No answer generated."),
-        steps=response_data.get("steps", []),
-        documents_required=response_data.get("documents_required", []),
-        fees=response_data.get("fees", []),
-        authority=response_data.get("authority", "Unknown"),
+        answer=to_str(response_data.get("answer", "No answer generated.")),
+        steps=to_list(response_data.get("steps", [])),
+        documents_required=to_list(response_data.get("documents_required", [])),
+        fees=to_list(response_data.get("fees", [])),
+        authority=to_str(response_data.get("authority", "Unknown")),
         schemes=potential_services,
         sources=evidence,
         confidence_score=confidence
